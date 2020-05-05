@@ -7,6 +7,11 @@ import { InventoryComponent } from "./inventory/inventory.component";
 import { ReceiveProductComponent } from "./receiving/receive-product.component";
 import { ShipOrderComponent } from "./shipping/ship-order.component";
 import { OrdersToShipComponent } from "./shipping/orders-to-ship.component";
+import OrderLine from "./shared/orderLine";
+import Order from "./shared/order";
+import Product from "./shared/product";
+import Location from "./shared/location";
+import Customer from "./shared/customer";
 
 @NgModule({
   declarations: [

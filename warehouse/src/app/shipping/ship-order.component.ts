@@ -8,10 +8,25 @@ import OrderLine from "../shared/orderLine";
 @Component({
   selector: "cw-ship-order",
   templateUrl: "./ship-order.component.html",
-  styleUrls: ["./ship-order.component.scss"],
+  styles: [
+    `
+      .big-checkbox {
+        transform: scale(2);
+        margin: 0 0 0 10px;
+      }
+
+      .blue-btn {
+        background-color: blue;
+        color: white;
+        border: 1px;
+      }
+    `,
+  ],
 })
 export class ShipOrderComponent implements OnInit {
-  constructor(private order: Order) {}
+  private order: Order;
+
+  constructor() {}
 
   ngOnInit() {
     const customer: Customer = new Customer(
