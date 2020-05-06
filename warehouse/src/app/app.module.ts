@@ -9,6 +9,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { ReceiveProductComponent } from './receiving/receive-product.component';
 import { ShipOrderComponent } from './shipping/ship-order.component';
 import { OrdersToShipComponent } from './shipping/orders-to-ship.component';
+import { NWRoutingModule } from './app.router';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OrdersToShipComponent } from './shipping/orders-to-ship.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NWRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
