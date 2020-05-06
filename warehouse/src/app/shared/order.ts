@@ -1,22 +1,24 @@
-import OrderLine from "./orderLine";
-import Customer from "./customer";
+import { OrderLine } from "./OrderLine";
+import { Customer } from "./Customer";
 
-export default class Order {
-  constructor(
-    private orderID: number,
-    private customerID: number,
-    private status: number,
-    private orderDate: Date,
-    private shipVia: number,
-    private shipping: number,
-    private tax: number,
-    private shipName: string,
-    private shipAddress: string,
-    private shipCity: string,
-    private shipRegion: string,
-    private shipPostalCode: string,
-    private shipCountry: string,
-    private lines: Array<OrderLine>,
-    private customer: Customer
-  ) {}
+export class Order {
+  orderID: number;
+  customerID: string
+  status: number;
+  orderDate: Date;
+  shipVia: string;
+  shipping: number;
+  tax: number;
+  shipName: string;
+  shipAddress: string;
+  shipCity: string;
+  shipRegion: string;
+  shipPostalCode: string;
+  shipCountry: string;
+  lines: Array<OrderLine>;
+  customer: Customer;
+
+  // orderTotal():number {
+  //   return this.lines.reduce((sum, line) => sum + line.price * line.quantity, 0);
+  // }
 }
