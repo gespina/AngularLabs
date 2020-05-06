@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'cw-orders-to-ship',
+  selector: 'nw-orders-to-ship',
   templateUrl: './orders-to-ship.component.html',
-  styleUrls: ['./orders-to-ship.component.scss']
+  styleUrls: ['./orders-to-ship.component.css']
 })
 export class OrdersToShipComponent implements OnInit {
 

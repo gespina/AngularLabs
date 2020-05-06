@@ -1,14 +1,12 @@
-import Product from "./product";
-import Location from "./location";
+import { Product } from './Product';
+import { Location } from './Location';
 
-export default class OrderLine {
-  constructor(
-    private quantity: number,
-    private productID: number,
-    private locationID: string,
-    private price: number,
-    private picked: boolean,
-    private product: Product,
-    private location: Location
-  ) {}
+export class OrderLine {
+  quantity: number;
+  productID: number;
+  locationID: string;
+  price: number;
+  picked: boolean;
+  product: Product;
+  location: Location;
 }
