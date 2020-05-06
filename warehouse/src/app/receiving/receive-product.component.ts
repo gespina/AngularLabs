@@ -8,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceiveProductComponent implements OnInit {
 
+  showForm: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  saveTrackingNumber(){
+    this.showForm = true;
+  }
+
+  receiveProduct() {
+    console.log("Receive product")
+  }
+
+  finishedReceiving(){
+    console.log("Finished product")
+  }
 }

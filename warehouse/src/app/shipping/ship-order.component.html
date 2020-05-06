@@ -1,6 +1,12 @@
-<div class="alert" [ngClass]="{'alert-success':order.status === 0,'alert-danger':order.status !== 0}">
+<div class="alert" *ngIf="order.status!==2; else problemMsg"
+  [ngClass]="{'alert-success':order.status === 0,'alert-danger':order.status !== 0}">
   Order status: Ready to ship
 </div>
+<ng-template #problemMsg>
+  <div class="alert alert-danger">
+    Don't pick this order! It needs to be looked at by a supervisor.
+  </div>
+</ng-template>
 <div class="alert" [ngClass]="{'alert-info':order.status !== 2,'alert-danger':order.status === 2}">
   <h3>Instructions</h3>
   <ol>
@@ -36,7 +42,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let line of order.lines">
-        <ng-template #getLocationButton><button class="btn">Get best location</button></ng-template>
+        <ng-template #getLocationButton><button (click)="getBestLocation(line)" class="btn">Get best location</button>
+        </ng-template>
         <td><input type="checkbox" class="big-checkbox"></td>
         <td><span *ngIf="line.locationID ; else getLocationButton">{{ line.locationID }}</span></td>
         <td>{{ line.productID }}</td>
@@ -47,8 +54,9 @@
   </table>
 </section>
 <section id="markAsShipped">
-  <button class="btn btn-lg btn-primary" [disabled]="!isReadyToShip(order)">Mark as shipped</button>
-  <button class="btn btn-lg btn-danger">Problem</button>
+  <button class="btn btn-lg btn-primary" [disabled]="!isReadyToShip(order)" (click)="markAsShipped(order)">Mark as
+    shipped</button>
+  <button class="btn btn-lg btn-danger" (click)="markWithProblem(order)">Problem</button>
 </section>
 <section id="shippingLabel">
   <h3>Shipping Label</h3>

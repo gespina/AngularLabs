@@ -13,7 +13,8 @@
 <section id="trackingInfo">
   <div class="control-group">
     <label class="control-label" for="trackingNumber">Tracking number</label>
-    <input class="form-control" id="trackingNumber" required pattern="^\d[A-Z]\d{16}$|^\d{14,15}$|^9[2-4]\d{2}( ?\d{4}){4} ?\d{2}$" />
+    <input class="form-control" id="trackingNumber" required
+      pattern="^\d[A-Z]\d{16}$|^\d{14,15}$|^9[2-4]\d{2}( ?\d{4}){4} ?\d{2}$" />
   </div>
   <button class="btn btn-primary btn-large">Continue</button>
 </section>
@@ -85,6 +86,6 @@
     </table>
   </section>
   <section>
-    <button class="btn btn-lg">Finished receiving</button>
+    <button class="btn btn-lg" (click)="finishedReceiving()">Finished receiving</button>
   </section>
 </div>

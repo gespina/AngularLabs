@@ -52,4 +52,18 @@ export class ShipOrderComponent implements OnInit {
   isReadyToShip(order) {
     return order.lines.every(line => line.picked);
   }
+
+  getBestLocation(orderLine: OrderLine) {
+    orderLine.locationID = '01A1A';
+    console.log(orderLine);
+  }
+
+  markAsShipped(order: Order) {
+    order.status = 1;
+  }
+
+  markWithProblem(order: Order) {
+    order.status = 2;
+  }
+
 }
