@@ -1,3 +1,4 @@
+<div *ngIf="obs$ | async"></div>
 <h2>Receiving Products</h2>
 <div class="alert alert-success"> Order status </div>
 <div class="alert alert-info">
@@ -10,11 +11,11 @@
   </ol>
   <p> If there's a problem and you need a supervisor to look at it, hit the "Problem" button.</p>
 </div>
-<section id="trackingInfo">
+<section [ngClass]="trackingTR.touched ? (trackingTR.valid ? 'bg-success text-success' : 'bg-danger text-danger') : ''"
+  id="trackingInfo">
   <div class="control-group">
     <label class="control-label" for="trackingNumber">Tracking number</label>
-    <input class="form-control" id="trackingNumber" required
-      pattern="^\d[A-Z]\d{16}$|^\d{14,15}$|^9[2-4]\d{2}( ?\d{4}){4} ?\d{2}$" />
+    <input #trackingTR="ngModel" [(ngModel)]="trackingNumber" class="form-control" id="trackingNumber" required />
   </div>
   <button class="btn btn-primary btn-large" (click)="saveTrackingNumber()">Continue</button>
 </section>
@@ -32,60 +33,34 @@
     <p>... OR ...</p>
     <div class="control-group">
       <label class="control-label" for="productID">Product ID</label>
-      <input class="form-control" id="productID">
+      <input [(ngModel)]="productID" (ngModelChange)="getProduct($event)" class="form-control" id="productID">
     </div>
     <div class="control-group">
       <label class="control-label" for="quantity">Quantity Received</label>
-      <input class="form-control" id="quantity" step="1" type="number">
+      <input [(ngModel)]="quantity" class="form-control" id="quantity" step="1" type="number">
     </div>
     <div class="control-group">
-      <input class="btn btn-primary" (click)="receiveProduct()" type="submit" value="Receive product" />
+      <input class="btn btn-primary" (click)="receiveProduct(productID, quantity)" type="submit"
+        value="Receive product" />
     </div>
   </section>
   <section id="orderContents">
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Image</th>
           <th>ID</th>
-          <th>Name</th>
           <th>Quantity</th>
-          <th>Location</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><img alt="Fish Sauce" src="assets/images/productImages/8.jpg"></td>
-          <td>7</td>
-          <td>Fish Sauce</td>
-          <td>17</td>
-          <td>04A4D</td>
-        </tr>
-        <tr>
-          <td><img alt="Jalapeno Ketchup" src="/assets/images/productImages/13.jpg"></td>
-          <td>12</td>
-          <td>jalapeno Ketchup</td>
-          <td>11</td>
-          <td>04C2C</td>
-        </tr>
-        <tr>
-          <td><img alt="Mustard" src="/assets/images/productImages/24.jpg"></td>
-          <td>65</td>
-          <td>Mustard</td>
-          <td>24</td>
-          <td>05D2A</td>
-        </tr>
-        <tr>
-          <td><img alt="Chewing gum" src="/assets/images/productImages/2.jpg"></td>
-          <td>23</td>
-          <td>Chewing gum</td>
-          <td>34</td>
-          <td>04D1C</td>
+        <tr *ngFor="let r of receivedProducts">
+          <td>{{r.productID}}</td>
+          <td>{{r.quantity}}</td>
         </tr>
       </tbody>
     </table>
   </section>
   <section>
-    <button class="btn btn-lg" (click)="finishedReceiving()">Finished receiving</button>
+    <button class="btn btn-primary btn-lg" (click)="finishedReceiving()">Finished receiving</button>
   </section>
 </div>

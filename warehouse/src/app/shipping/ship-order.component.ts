@@ -3,6 +3,9 @@ import { Order } from '../shared/Order';
 import { OrderLine } from '../shared/OrderLine';
 import { Product } from '../shared/Product';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { map, first } from "rxjs/operators";
+import { Location } from 'app/shared/Location';
 
 @Component({
   selector: 'nw-ship-order',
@@ -13,40 +16,19 @@ import { ActivatedRoute } from '@angular/router';
 export class ShipOrderComponent implements OnInit {
   order: Order;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private _http: HttpClient
+    ) { }
 
   ngOnInit() {
     let orderID = this.route.snapshot.params.orderID;
-    console.log(this.route.snapshot.params)
-    this.order = new Order();
-    this.order.orderID = orderID;
-    this.order.orderDate = new Date();
-    this.order.shipVia = "GPS";
-    this.order.shipping = 10;
-    this.order.shipName = "Ororo Monroe";
-    this.order.shipAddress = "777 Placeholder Pl";
-    this.order.shipCity = "Birnin Zana";
-    this.order.shipRegion = "RG";
-    this.order.shipCountry = "Wakanda";
-    this.order.shipPostalCode = "5T4N-L33";
-    this.order.status = 0;
-    this.order.lines = [];
-    const line1 = new OrderLine();
-    //line1.locationID = "02B1C";
-    line1.price = 30.00;
-    line1.productID = 55;
-    line1.quantity = 2;
-    line1.product = new Product();
-    line1.product.name = "Oreos";
-    const line2 = new OrderLine();
-    line2.locationID = "05A3A";
-    line2.price = 30.00;
-    line2.productID = 45;
-    line2.quantity = 7;
-    line2.product = new Product();
-    line2.product.name = "Peanuts";
-    this.order.lines.push(line1);
-    this.order.lines.push(line2);
+    const url = `/api/orders/${orderID}`;
+    this._http.get(url).pipe(
+      map(data => <Order>data)
+    ).subscribe(
+      order => this.order = order
+    )
   }
 
   isReadyToShip(order) {
@@ -54,8 +36,12 @@ export class ShipOrderComponent implements OnInit {
   }
 
   getBestLocation(orderLine: OrderLine) {
-    orderLine.locationID = '01A1A';
-    console.log(orderLine);
+    const url = `/api/locations/forProduct/${orderLine.productID}`;
+    this._http.get(url).pipe(
+      map(data => <Array<Location>>data),
+    ).subscribe(
+      best => orderLine.locationID = best[0].id
+    )
   }
 
   markAsShipped(order: Order) {

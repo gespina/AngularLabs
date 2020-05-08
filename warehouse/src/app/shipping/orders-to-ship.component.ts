@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'nw-orders-to-ship',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orders-to-ship.component.css']
 })
 export class OrdersToShipComponent implements OnInit {
-
-  constructor() { }
+  
+  orders;
+  constructor(private _http:HttpClient) { }
 
   ngOnInit() {
+    this.getOrdersReadyToShip();
+  }
+
+  getOrdersReadyToShip() {
+    const url = `/api/orders/readyToShip`;
+    this._http.get(url).toPromise()
+    .then(
+      res => this.orders = res
+    )
   }
 
 }

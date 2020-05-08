@@ -10,6 +10,9 @@ import { ReceiveProductComponent } from './receiving/receive-product.component';
 import { ShipOrderComponent } from './shipping/ship-order.component';
 import { OrdersToShipComponent } from './shipping/orders-to-ship.component';
 import { NWRoutingModule } from './app.router';
+import { ListOfOrdersComponent } from './shipping/list-of-orders.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './shared/login.service';
 
 @NgModule({
   declarations: [
@@ -18,15 +21,20 @@ import { NWRoutingModule } from './app.router';
     InventoryComponent,
     ReceiveProductComponent,
     ShipOrderComponent,
-    OrdersToShipComponent
+    OrdersToShipComponent,
+    ListOfOrdersComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpClientModule,
     NWRoutingModule
   ],
-  providers: [],
+  providers: [
+    LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

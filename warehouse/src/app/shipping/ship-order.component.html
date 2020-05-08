@@ -1,4 +1,4 @@
-<div class="alert" *ngIf="order.status!==2; else problemMsg"
+<div class="alert" *ngIf="order?.status!==2; else problemMsg"
   [ngClass]="{'alert-success':order.status === 0,'alert-danger':order.status !== 0}">
   Order status: Ready to ship
 </div>
@@ -7,7 +7,7 @@
     Don't pick this order! It needs to be looked at by a supervisor.
   </div>
 </ng-template>
-<div class="alert" [ngClass]="{'alert-info':order.status !== 2,'alert-danger':order.status === 2}">
+<div class="alert" [ngClass]="{'alert-info':order?.status !== 2,'alert-danger':order?.status === 2}">
   <h3>Instructions</h3>
   <ol>
     <li>Click a <i>Get best location</i> button and the system will tell you the best place to pick up your item.</li>
@@ -19,7 +19,7 @@
 <section id="orderInfo">
   <ul class="list-group">
     <li class="list-group-item">
-      Order number: {{ order.orderID }}
+      Order number: {{ order.id }}
     </li>
     <li class="list-group-item">
       Order date: {{ order.orderDate }}
@@ -44,7 +44,7 @@
       <tr *ngFor="let line of order.lines">
         <ng-template #getLocationButton><button (click)="getBestLocation(line)" class="btn">Get best location</button>
         </ng-template>
-        <td><input type="checkbox" class="big-checkbox"></td>
+        <td><input [(ngModel)]="line.picked" type="checkbox" class="big-checkbox"></td>
         <td><span *ngIf="line.locationID ; else getLocationButton">{{ line.locationID }}</span></td>
         <td>{{ line.productID }}</td>
         <td><img src="/assets/images/productImages/{{ line.productID }}.jpg"></td>
